@@ -28,8 +28,12 @@ public class Agence {
         if(!vs.getVoitures().contains(v)) {
             throw new VoitureException("Voiture inexistante");
         }
-        vs.supprimeVoiture(v);
-        ClientVoitureLoue.computeIfAbsent(cl, k -> new ListVoitures()).ajoutVoiture(v);
+        suppVoiture(v);
+        ListVoitures voituresLoue = ClientVoitureLoue.get(cl);
+        if (voituresLoue == null) {
+            voituresLoue = new ListVoitures();
+            ClientVoitureLoue.put(cl, voituresLoue);
+        }
     }
 
     public void retourClientVoiture(Client cl, Voiture v) throws VoitureException {
@@ -38,7 +42,7 @@ public class Agence {
             throw new VoitureException("Voiture non louée par ce client");
         }
         voituresLoue.supprimeVoiture(v);
-        vs.ajoutVoiture(v);
+        ajoutVoiture(v);
     }
 
     public List<Voiture> selectVoitureSelonCritere(Critere c) {
