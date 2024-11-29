@@ -34,6 +34,7 @@ public class Agence {
             voituresLoue = new ListVoitures();
             ClientVoitureLoue.put(cl, voituresLoue);
         }
+        voituresLoue.ajoutVoiture(v);
     }
 
     public void retourClientVoiture(Client cl, Voiture v) throws VoitureException {
@@ -65,7 +66,8 @@ public class Agence {
 
     public void afficheLesClientsEtLeursListesVoitures() {
         for (Map.Entry<Client, ListVoitures> entry : ClientVoitureLoue.entrySet()) {
-            System.out.println(entry.getKey() + " : " + entry.getValue());
+            System.out.println(entry.getKey() + " :");
+            entry.getValue().affiche();
         }
     }
 

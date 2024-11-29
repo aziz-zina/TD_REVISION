@@ -26,7 +26,7 @@ public class Main {
             agence.ajoutVoiture(voiture3);
 
             // Supprimer une Voiture de l'Agence
-            agence.suppVoiture(voiture3);
+            //agence.suppVoiture(voiture3);
 
             // Créer quelques Clients
             Client client1 = new Client(101, "Aziz", "Zina");
@@ -35,10 +35,19 @@ public class Main {
             // Louer des Voitures aux Clients
             agence.loueClientVoiture(client1, voiture1);
             agence.loueClientVoiture(client2, voiture2);
+            agence.loueClientVoiture(client1, voiture3);
+
+            // Print the state before returning cars
+            System.out.println("État avant le retour des voitures:");
+            agence.afficheLesClientsEtLeursListesVoitures();
 
             // Retourner des Voitures des Clients
             agence.retourClientVoiture(client1, voiture1);
             agence.retourClientVoiture(client2, voiture2);
+
+            // Print the state before returning cars
+            System.out.println("État apres le retour des voitures:");
+            agence.afficheLesClientsEtLeursListesVoitures();
 
             // Sélectionner des Voitures selon un Critère
             Critere critere = v -> v.getPrixLocation() < 60.0f;
@@ -68,12 +77,18 @@ public class Main {
             // Afficher les Clients triés par code
             System.out.println("Clients triés par code:");
             Map<Client, ListVoitures> clientsTriesParCode = agence.triCodeCroissant();
-            clientsTriesParCode.forEach((client, listVoitures) -> System.out.println(client + " : " + listVoitures));
+            clientsTriesParCode.forEach((client, listVoitures) -> {
+                System.out.println(client + " :");
+                listVoitures.affiche();
+            });
 
             // Afficher les Clients triés par nom
             System.out.println("Clients triés par nom:");
             Map<Client, ListVoitures> clientsTriesParNom = agence.triNomCroissant();
-            clientsTriesParNom.forEach((client, listVoitures) -> System.out.println(client + " : " + listVoitures));
+            clientsTriesParNom.forEach((client, listVoitures) -> {
+                System.out.println(client + " :");
+                listVoitures.affiche();
+            });
 
         } catch (VoitureException e) {
             e.printStackTrace();
